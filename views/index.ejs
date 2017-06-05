@@ -7,24 +7,65 @@
     <!--&lt;!&ndash; If you'd like to support IE8 &ndash;&gt;-->
     <!--<script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>-->
     <!--<script src="http://vjs.zencdn.net/5.19.2/video.js"></script>-->
+    <style>
+        .vplayer{
+            display: inline-block;
+            position: relative;
+        }
+        .subtitle{
+            position: absolute;
+            bottom: 50px;
+            width: 100%;
+            text-align: center;
+            font-size: 20px;
+            color: white;
+        }
+        video{
+            background-color: #111111;
+        }
+    </style>
 </head>
 <body>
 <h1></h1>
 <p>Welcome to</p>
 <div class="vplayer">
-    <video style="background-color: red" width="640" height="400" id="my-player" class="video-js"
+    <video  width="640" height="400" id="my-player" class="video-js"
            controls
            preload="auto"
            data-setup='{}'
            poster="http://www.dreamworks.com/kungfupanda/images/uploads/games/_400/KFP3_VG_Promo_r3.jpg">
-        <source src="https://redirector.googlevideo.com/videoplayback?id=50743ce9900ff2d9&itag=18&source=webdrive&requiressl=yes&ttl=transient&mm=30&mn=sn-npoeen7r&ms=nxu&mv=m&pl=20&ei=UjE1WcDsGYXlqgXb_KOgBw&driveid=0B75nLBc1vU18ZU9BRUFMVXVFY1U&mime=video/mp4&lmt=1465044844315586&mt=1496657860&ip=188.166.180.232&ipbits=0&expire=1496672658&sparams=ip,ipbits,expire,id,itag,source,requiressl,ttl,mm,mn,ms,mv,pl,ei,driveid,mime,lmt&signature=1EA8EEE2837F59A1F98DDD1645165B6209DADB2D.58035D108E8F03512C16A239C18575A563620262&key=ck2&app=explorer#t=0,null"
+        <source src="http://188.166.180.232:3120/play?fileId=0B75nLBc1vU18QXB2Y3M4SEtiRDQ#t=0,null"
                 type="video/mp4">
         <!--<track src="/subs/sub.srt" srclang="en" label="English" kind="subtitles">-->
     </video>
+    <div class="subtitle">
+
+    </div>
 </div>
 
-<script src="/javascripts/jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/javascripts/subtitle-parser.js"></script>
 <script>
+    function searchSubByTime(arraySub,startIndex,endIndex,timeValue) {
+
+        if(startIndex == endIndex){
+            var subObj = arraySub[startIndex];
+            if(subObj.endTime >= timeValue && subObj.startTime<= timeValue){
+                return subObj;
+            }else {
+                return null;
+            }
+        }else {
+            var middle = Math.floor((startIndex+endIndex)/2);
+            var subObj = arraySub[middle];
+            if(subObj.endTime < timeValue){
+                return searchSubByTime(arraySub,middle+1,endIndex,timeValue);
+            }else if(subObj.startTime > timeValue){
+                return searchSubByTime(arraySub,startIndex,middle,timeValue);
+            }else return subObj;
+        }
+
+    }
     $(document).ready(function () {
 //        var options = {};
 //
@@ -44,8 +85,33 @@
 //        });
         var ePlayer = $('#my-player');
         ePlayer.on('timeupdate',function (event) {
-           console.log(event);
+
+           if(dataMs){
+               var subObj=(searchSubByTime(dataMs,0,dataMs.length-1,1000*this.currentTime));
+               console.log('timeupdate',this.currentTime,subObj);
+               if(subObj){
+                   $('.subtitle').html(subObj.text);
+               }else{
+                   $('.subtitle').html('');
+               }
+
+           }
         });
+        ePlayer.on('pause',function (event) {
+           console.log('pause');
+        });
+        ePlayer.on('playing',function (event) {
+           console.log('playing');
+        });
+        ePlayer.on('waiting',function (event) {
+           console.log('waiting');
+        });
+        var dataMs;
+        $.get( "/subs/suben.srt", function( data ) {
+            dataMs = parser.fromSrt(data, true);
+            console.log(dataMs);
+        });
+
     })
 </script>
 </body>
