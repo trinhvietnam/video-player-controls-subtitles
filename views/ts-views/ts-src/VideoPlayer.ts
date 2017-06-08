@@ -48,10 +48,20 @@ export class VideoPlayer {
     public onNextSub() {
 
     }
+    private addInputCharacterKeyEvent(e){
+        e.keyup(function () {
+            console.log('66666666666666');
+            if($(this).val().length>0){
+                $(this).next().focus();
+            }
+        });
 
+        console.log('555555555555555',e);
+    }
     public startWriteTranscriptExercise() {
         var videolPlayer = this;
         var ePlayer = this.ePlayer;
+        var eInputCharacter = $('.sample.character').clone().remove('.sample');
         ePlayer.on('timeupdate', function (event) {
             if (videolPlayer.isPause) return;
             if (videolPlayer.activedSubtitle.length > 0) {
@@ -67,7 +77,15 @@ export class VideoPlayer {
                                 this.isPause = true;
                                 videolPlayer.onEndSub(() => {
                                     var wtq = QuestionBuilder.getWriteTranscriptQuestion(subObj.text);
-                                    var dataShow = wtq.textQuestion.replace(QuestionBuilder.maskHiddenWord, '<input type="text"/>');
+                                    var eInputWrapper = $('<div><label></label></div>');
+                                    for (var i = 0; i < wtq.numOfCharacters[0]; i++) {
+                                        var e =eInputCharacter.clone();
+                                        videolPlayer.addInputCharacterKeyEvent(e);
+                                        eInputWrapper.find('label').append(e)
+                                    }
+                                    console.log('a  ',wtq.numOfCharacters[0]);
+                                    // var dataShow = wtq.textQuestion.replace(QuestionBuilder.maskHiddenWord, '<input type="text"/>');
+                                    var dataShow = wtq.textQuestion.replace(QuestionBuilder.maskHiddenWord,eInputWrapper.html());
                                     var p = $('<div>').html(dataShow).css('color', videolPlayer.subtitles[name].color).css('margin-top', '10px');
                                     // var p = $('<div>').html(subObj.text).css('color',videolPlayer.subtitles[name].color).css('margin-top','10px');
                                     if (!isRemoved) {
@@ -79,7 +97,16 @@ export class VideoPlayer {
                                 });
                             } else {
                                 var wtq = QuestionBuilder.getWriteTranscriptQuestion(subObj.text);
-                                var dataShow = wtq.textQuestion.replace(QuestionBuilder.maskHiddenWord, '<input type="text"/>');
+                                var eInputWrapper = $('<div><label></label></div>');
+                                for (var i = 0; i < wtq.numOfCharacters[0]; i++) {
+                                    var e =eInputCharacter.clone();
+                                    videolPlayer.addInputCharacterKeyEvent(e);
+                                    eInputWrapper.find('label').append(e)
+                                }
+                                console.log('b  ',wtq.numOfCharacters[0]);
+                                // var dataShow = wtq.textQuestion.replace(QuestionBuilder.maskHiddenWord, '<input type="text"/>');
+                                var dataShow = wtq.textQuestion.replace(QuestionBuilder.maskHiddenWord,eInputWrapper.html());
+                                // var dataShow = wtq.textQuestion.replace(QuestionBuilder.maskHiddenWord, '<input type="text"/>');
                                 var p = $('<div>').html(dataShow).css('color', videolPlayer.subtitles[name].color).css('margin-top', '10px');
                                 // var p = $('<div>').html(subObj.text).css('color',videolPlayer.subtitles[name].color).css('margin-top','10px');
                                 if (!isRemoved) {
