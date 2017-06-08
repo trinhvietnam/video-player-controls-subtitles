@@ -12,6 +12,8 @@
             display: inline-block;
             position: relative;
             z-index: 1;
+            width: 800px;
+            height: 500px;
         }
         .subtitle{
             position: absolute;
@@ -36,7 +38,11 @@
             border-color: gray;
             border: 1px solid gray;
             text-align: center;
-            font-size: 1.3em;
+            font-size: 1.1em;
+        }
+        .word{
+            margin-left: 3px;
+            margin-right: 3px;
         }
     </style>
 </head>
@@ -44,11 +50,11 @@
 <h1></h1>
 <p>Welcome to</p>
 <div class="vplayer">
-    <video  width="640" height="400" id="my-player" class="video-js"
+    <video  width="100%" height="100%" id="my-player" class="video-js"
            preload="auto"
            data-setup='{}'
            poster="http://www.dreamworks.com/kungfupanda/images/uploads/games/_400/KFP3_VG_Promo_r3.jpg">
-        <source src="https://redirector.googlevideo.com/videoplayback?id=6f93506a543bc6de&itag=18&source=webdrive&requiressl=yes&ttl=transient&mm=30&mn=sn-npoe7n76&ms=nxu&mv=u&pl=22&ei=tyg5WdedH9fRqgXhkK_QAg&driveid=0B75nLBc1vU18dW1ZNzhhM0R1VDA&mime=video/mp4&lmt=1465044073194796&mt=1496918026&ip=188.166.180.232&ipbits=0&expire=1496932599&sparams=ip,ipbits,expire,id,itag,source,requiressl,ttl,mm,mn,ms,mv,pl,ei,driveid,mime,lmt&signature=A6749C3CB0DD34183A48C887EF4DA7015AEAE1B2.627CC4C069855D9706912DE5525571FD9E76B48E&key=ck2&app=explorer#t=9.12564,null"
+        <source src="https://redirector.googlevideo.com/videoplayback?id=6f93506a543bc6de&itag=18&source=webdrive&requiressl=yes&ttl=transient&mm=30&mn=sn-npoeen7k&ms=nxu&mv=m&pl=20&ei=MJc5WezgH6Tf-APknbuQCQ&driveid=0B75nLBc1vU18dW1ZNzhhM0R1VDA&mime=video/mp4&lmt=1465044073194796&mt=1496946388&ip=188.166.180.232&ipbits=0&expire=1496960880&sparams=ip,ipbits,expire,id,itag,source,requiressl,ttl,mm,mn,ms,mv,pl,ei,driveid,mime,lmt&signature=A3411935208A7B1D06E830F9AE3CF77B536EA023.81D32733127BE2247AE8212397D04E0A8572C252&key=ck2&app=explorer#t=0,null"
                 type="video/mp4">
         <!--<track src="/subs/sub.srt" srclang="en" label="English" kind="subtitles">-->
     </video>

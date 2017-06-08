@@ -48,16 +48,18 @@ export class VideoPlayer {
     public onNextSub() {
 
     }
-    private addInputCharacterKeyEvent(e){
+
+    private addInputCharacterKeyEvent(e) {
         e.keyup(function () {
             console.log('66666666666666');
-            if($(this).val().length>0){
+            if ($(this).val().length > 0) {
                 $(this).next().focus();
             }
         });
 
-        console.log('555555555555555',e);
+        console.log('555555555555555', e);
     }
+
     public startWriteTranscriptExercise() {
         var videolPlayer = this;
         var ePlayer = this.ePlayer;
@@ -75,51 +77,67 @@ export class VideoPlayer {
                         if (subObj != currentSubData) {
                             if (currentSubData) {
                                 this.isPause = true;
+                                $(videolPlayer.subTitleSelector).find('.character').first().focus();
+                                console.log($(videolPlayer.subTitleSelector).find('.character'));
                                 videolPlayer.onEndSub(() => {
                                     var wtq = QuestionBuilder.getWriteTranscriptQuestion(subObj.text);
-                                    var eInputWrapper = $('<div><label></label></div>');
-                                    for (var i = 0; i < wtq.numOfCharacters[0]; i++) {
-                                        var e =eInputCharacter.clone();
-                                        videolPlayer.addInputCharacterKeyEvent(e);
-                                        eInputWrapper.find('label').append(e)
+                                    var eLine = $('<label/>');
+                                    for (var i = 0; i < wtq.wordsQuestion.length; i++) {
+                                        var eInputWrapper;
+                                        if (wtq.mapHiddenWordsWithNumOfChars[i]) {
+                                            eInputWrapper = $('<label class="input-word"/>');
+                                            for (var j = 0; j < wtq.mapHiddenWordsWithNumOfChars[i]; j++) {
+                                                var e = eInputCharacter.clone();
+                                                videolPlayer.addInputCharacterKeyEvent(e);
+                                                eInputWrapper.append(e)
+                                            }
+                                        } else {
+                                            eInputWrapper = $('<span class="word"/>');
+                                            eInputWrapper.text(wtq.wordsQuestion[i]);
+                                        }
+                                        eLine.append(eInputWrapper);
                                     }
-                                    console.log('a  ',wtq.numOfCharacters[0]);
-                                    // var dataShow = wtq.textQuestion.replace(QuestionBuilder.maskHiddenWord, '<input type="text"/>');
-                                    var dataShow = wtq.textQuestion.replace(QuestionBuilder.maskHiddenWord,eInputWrapper.html());
-                                    var p = $('<div>').html(dataShow).css('color', videolPlayer.subtitles[name].color).css('margin-top', '10px');
                                     // var p = $('<div>').html(subObj.text).css('color',videolPlayer.subtitles[name].color).css('margin-top','10px');
                                     if (!isRemoved) {
                                         isRemoved = true;
                                         $(videolPlayer.subTitleSelector).empty();
                                     }
-                                    $(videolPlayer.subTitleSelector).append(p);
+                                    $(videolPlayer.subTitleSelector).css('color',videolPlayer.subtitles[name].color).css('margin-top','10px').append(eLine);
                                     videolPlayer.subtitles[name].currentSubData = subObj;
                                 });
                             } else {
                                 var wtq = QuestionBuilder.getWriteTranscriptQuestion(subObj.text);
-                                var eInputWrapper = $('<div><label></label></div>');
-                                for (var i = 0; i < wtq.numOfCharacters[0]; i++) {
-                                    var e =eInputCharacter.clone();
-                                    videolPlayer.addInputCharacterKeyEvent(e);
-                                    eInputWrapper.find('label').append(e)
+                                var eLine = $('<label/>');
+
+                                for (var i = 0; i < wtq.wordsQuestion.length; i++) {
+                                    var eInputWrapper;
+                                    if (wtq.mapHiddenWordsWithNumOfChars[i]) {
+                                        eInputWrapper = $('<label class="input-word"/>');
+                                        for (var j = 0; j < wtq.mapHiddenWordsWithNumOfChars[i]; j++) {
+                                            var e = eInputCharacter.clone();
+                                            videolPlayer.addInputCharacterKeyEvent(e);
+                                            eInputWrapper.append(e)
+                                        }
+                                    } else {
+                                        eInputWrapper = $('<span class="word"/>');
+                                        eInputWrapper.text(wtq.wordsQuestion[i]);
+                                    }
+                                    eLine.append(eInputWrapper);
                                 }
-                                console.log('b  ',wtq.numOfCharacters[0]);
-                                // var dataShow = wtq.textQuestion.replace(QuestionBuilder.maskHiddenWord, '<input type="text"/>');
-                                var dataShow = wtq.textQuestion.replace(QuestionBuilder.maskHiddenWord,eInputWrapper.html());
-                                // var dataShow = wtq.textQuestion.replace(QuestionBuilder.maskHiddenWord, '<input type="text"/>');
-                                var p = $('<div>').html(dataShow).css('color', videolPlayer.subtitles[name].color).css('margin-top', '10px');
                                 // var p = $('<div>').html(subObj.text).css('color',videolPlayer.subtitles[name].color).css('margin-top','10px');
                                 if (!isRemoved) {
                                     isRemoved = true;
                                     $(videolPlayer.subTitleSelector).empty();
                                 }
-                                $(videolPlayer.subTitleSelector).append(p);
+                                $(videolPlayer.subTitleSelector).css('color',videolPlayer.subtitles[name].color).css('margin-top','10px').append(eLine);
                                 videolPlayer.subtitles[name].currentSubData = subObj;
                             }
                         }
 
                     } else {
                         if (currentSubData) {
+                            $(videolPlayer.subTitleSelector).find('.character').first().focus();
+                            console.log($(videolPlayer.subTitleSelector).find('.character'));
                             videolPlayer.onEndSub(() => {
                                 videolPlayer.subtitles[name].currentSubData = null;
                                 if (!isRemoved) {

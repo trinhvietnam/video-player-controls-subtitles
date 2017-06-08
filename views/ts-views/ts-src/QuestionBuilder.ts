@@ -12,32 +12,31 @@ export class QuestionBuilder{
             return word.replace('.','');
         });
         var positionHiddenWords = [new Date().getTime()%words.length];
-        var numOfCharacters = positionHiddenWords.map((index)=>{
+        var mapHiddenWordsWithNumOfChars = {};
+        var wordsQuestion = [];
+        positionHiddenWords.forEach((index)=>{
             console.log(words[index],words[index].length)
-            return words[index].length;
+            mapHiddenWordsWithNumOfChars[index]=words[index].length;
         });
-        var textQuestion = '';
         for (var i = 0; i < words.length; i++) {
             var word = words[i];
-            if(positionHiddenWords.lastIndexOf(i)<0){
-                textQuestion += word+' ';
+            if(positionHiddenWords.indexOf(i)<0){
+                wordsQuestion.push(word);
             }else {
-                textQuestion += this.maskHiddenWord+' ';
+                wordsQuestion.push(QuestionBuilder.maskHiddenWord);
             }
         }
-        return new WriteTranscriptQuestion(textQuestion.trim(),positionHiddenWords,numOfCharacters);
+        return new WriteTranscriptQuestion(wordsQuestion,mapHiddenWordsWithNumOfChars);
     }
 }
 export class WriteTranscriptQuestion{
-    textQuestion:string;
-    positionHiddenWords:Array<number>;
-    numOfCharacters:Array<number>;
+    wordsQuestion:string;
+    mapHiddenWordsWithNumOfChars;
     checkAnswer(answers:Array<string>){
 
     }
-    constructor(textQuestion,positionHiddenWords,numOfCharacters){
-        this.textQuestion = textQuestion;
-        this.positionHiddenWords = positionHiddenWords;
-        this.numOfCharacters = numOfCharacters;
+    constructor(wordsQuestion,mapHiddenWordsWithNumOfChars){
+        this.wordsQuestion = wordsQuestion;
+        this.mapHiddenWordsWithNumOfChars = mapHiddenWordsWithNumOfChars;
     }
 }
