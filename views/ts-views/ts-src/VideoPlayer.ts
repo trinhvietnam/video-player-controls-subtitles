@@ -50,13 +50,22 @@ export class VideoPlayer {
     }
 
     private addInputCharacterKeyEvent(e) {
-        e.keyup(function () {
+        e.keyup(function (e) {
             console.log('66666666666666');
             if ($(this).val().length > 0) {
                 $(this).next().focus();
             }
         });
+        e.keydown(function (e) {
+            console.log('66666666666666');
+            if ($(this).val().length > 0) {
 
+            } else {
+                if (e.keyCode == 8) {
+                    $(this).prev().focus();
+                }
+            }
+        });
         console.log('555555555555555', e);
     }
 
@@ -102,7 +111,7 @@ export class VideoPlayer {
                                         isRemoved = true;
                                         $(videolPlayer.subTitleSelector).empty();
                                     }
-                                    $(videolPlayer.subTitleSelector).css('color',videolPlayer.subtitles[name].color).css('margin-top','10px').append(eLine);
+                                    $(videolPlayer.subTitleSelector).css('color', videolPlayer.subtitles[name].color).css('margin-top', '10px').append(eLine);
                                     videolPlayer.subtitles[name].currentSubData = subObj;
                                 });
                             } else {
@@ -129,7 +138,7 @@ export class VideoPlayer {
                                     isRemoved = true;
                                     $(videolPlayer.subTitleSelector).empty();
                                 }
-                                $(videolPlayer.subTitleSelector).css('color',videolPlayer.subtitles[name].color).css('margin-top','10px').append(eLine);
+                                $(videolPlayer.subTitleSelector).css('color', videolPlayer.subtitles[name].color).css('margin-top', '10px').append(eLine);
                                 videolPlayer.subtitles[name].currentSubData = subObj;
                             }
                         }
@@ -150,6 +159,8 @@ export class VideoPlayer {
             }
         });
         ePlayer.trigger('play');
+        ePlayer[0].currentTime = 60;
+
     }
 
     public startTrackingSub() {
