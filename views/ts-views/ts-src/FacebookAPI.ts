@@ -5,11 +5,11 @@ import {Event} from "typescript.events"
 declare var FB: any;
 export class FacebookAPI extends Event {
     isReady;
-
     private loadFacebookSDK() {
         console.log('333333333333333333333');
         FB.init({
-            appId: '304062223380557',
+            // appId: '304062223380557',
+            appId: '1081935061865457',
             cookie: true,  // enable cookies to allow the server to access
                            // the session
             xfbml: true,  // parse social plugins on this page
