@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/ionRangeSlider/css/ion.rangeSlider.css">
+    <link rel="stylesheet" href="/ionRangeSlider/css/ion.rangeSlider.skinFlat.css">
+    <style>
+        .irs-bar,.irs-bar-edge,.irs-slider,.irs-line{
+            height:5px;
+            top:30px;
+            background: red;
+            cursor: pointer;
+        }
+        .irs-slider.single{
+            background: green !important;
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            top: 25px;
+        }
+        .irs-single{
+            cursor: pointer;
+        }
+        .irs-min,.irs-max{
+            display: none;
+        }
+        .irs-line-right{
+            background: none;
+        }
+        .irs-line-mid, .irs-line-left, .irs-line-right, .irs-bar, .irs-bar-edge, .irs-slider{
+            background: #e8e8e8;
+        }
+        .irs-bar, .irs-bar-edge, .irs-slider, .irs-line {
+            height: 5px;
+            top: 30px;
+            background: gray !important;
+            cursor: pointer;
+        }
+        .irs-from, .irs-to, .irs-single{
+            background-color: gray;
+        }
+        .irs-from:after, .irs-to:after, .irs-single:after{
+            border-top-color: gray;
+        }
+        .irs-from, .irs-to, .irs-single{
+            top: 6px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <input id="range_43" style="display: none" tabindex="-1" readonly="">
+<script src="/javascripts/jquery-1.12.3.min.js"></script>
+<script src="/javascripts/subtitle-parser.js"></script>
+<script src="https://connect.facebook.net/en_US/sdk.js"></script>
+<script src="/ionRangeSlider/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
+<script>
+    $('#range_43').ionRangeSlider({
+        min: 0,
+        max: 1000,
+        from: 550,
+        prettify: prettify
+    });
+    function prettify (num) {
+        var sec_num = parseInt(num, 10); // don't forget the second param
+        var hours   = Math.floor(sec_num / 3600);
+        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+        var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+        if (hours   < 10) {hours   = "0"+hours;}
+        if (minutes < 10) {minutes = "0"+minutes;}
+        if (seconds < 10) {seconds = "0"+seconds;}
+        return hours+':'+minutes+':'+seconds;
+    }
+</script>
+</body>
+</html>
