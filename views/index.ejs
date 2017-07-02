@@ -9,17 +9,45 @@
     <!--&lt;!&ndash; If you'd like to support IE8 &ndash;&gt;-->
     <!--<script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>-->
     <!--<script src="http://vjs.zencdn.net/5.19.2/video.js"></script>-->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
+    <!-- Morris chart -->
+    <link rel="stylesheet" href="plugins/morris/morris.css">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <link rel="stylesheet" href="owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="owlcarousel/owl.theme.default.min.css">
+    <link href="/libs/prettify/prettify.css" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/footer-distributed-with-address-and-phones.css">
+    <link href="/css/css.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <style>
+        body {
+            background-color: #dedede;
+        }
+
         .vplayer {
             display: inline-block;
             position: relative;
             z-index: 1;
             width: 800px;
             height: 500px;
-        }
-
-        video {
-            background-color: #111111;
         }
 
         sample-character {
@@ -42,6 +70,16 @@
             margin-left: 3px;
             margin-right: 3px;
         }
+
+        @media screen and (min-width: 768px) {
+            video {
+                min-height: 500px;
+                background-color: black;
+            }
+        }
+        video::-webkit-media-controls-enclosure {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
@@ -49,30 +87,244 @@
 <p>Welcome to</p>
 <div class="vplayer">
     <div class="ptaPlayer">
-        <video controls width="100%" height="100%" id="my-player" class="video-js"
+        <video width="100%" height="100%" id="my-player" class="video-js"
                poster="http://www.dreamworks.com/kungfupanda/images/uploads/games/_400/KFP3_VG_Promo_r3.jpg">
             <!--<source src="http://media.studyphim.vn/VIPN5/Extra/01_Extra_English_-_Hectors_arrival.mp4"-->
             <source src="http://media.studyphim.vn/4uploader/mu4/Kung%20Fu%20Panda%202.x264.brrip.yify-1.mp4"
                     type="video/mp4">
-            <track src="/subs/suben.srt" srclang="en" label="English" kind="subtitles" enable="true">
+
             <track src="/subs/subvi.srt" srclang="en" label="VietNam" kind="subtitles" enable="true">
+            <track src="/subs/suben.srt" srclang="en" label="English" kind="subtitles" enable="true" color="yellow">
         </video>
 
     </div>
+    <!--<style>-->
+        <!--.video-control-wrapper {-->
+            <!--display: block;-->
+            <!--background: rgb(67, 181, 11);;-->
+        <!--}-->
+
+        <!--.db-control-left {-->
+            <!--float: left;-->
+            <!--width: 60%;-->
+            <!--text-align: left;-->
+        <!--}-->
+
+        <!--.db-control-right {-->
+            <!--float: right;-->
+            <!--width: 40%;-->
+            <!--text-align: right;-->
+        <!--}-->
+
+        <!--.db-control-right .right {-->
+            <!--display: inline-block;-->
+        <!--}-->
+
+        <!--.slider-wrapper {-->
+            <!--display: inline-block;-->
+            <!--min-width: 100px;-->
+            <!--vertical-align: middle;-->
+            <!--margin-top: -5%;-->
+        <!--}-->
+
+        <!--.video-control-wrapper button {-->
+            <!--border: none;-->
+            <!--background: transparent;-->
+            <!--font-size: 22px;-->
+            <!--vertical-align: middle;-->
+            <!--outline: none;-->
+            <!--height: 40px;-->
+        <!--}-->
+    <!--</style>-->
+    <!--<div class="video-control-wrapper">-->
+        <!--<div class="db-control-left">-->
+            <!--<button class="play-pause">-->
+                <!--<i class="fa fa-play" aria-hidden="true"></i>-->
+                <!--<i class="fa fa-pause" aria-hidden="true"></i>-->
+            <!--</button>-->
+            <!--<button id="volume">-->
+                <!--<i class="fa fa-volume-up" aria-hidden="true"></i>-->
+                <!--<i class="fa fa-volume-down" aria-hidden="true"></i>-->
+                <!--<i class="fa fa-volume-off" aria-hidden="true"></i>-->
+            <!--</button>-->
+            <!--<div class="slider-wrapper">-->
+                <!--<input id="volume-range" style="display: none" tabindex="-1" readonly="">-->
+            <!--</div>-->
+
+            <!--<button>-->
+                <!--<i class="fa" aria-hidden="true">11:57</i>-->
+                <!--<i class="fa" aria-hidden="true">&nbsp;/&nbsp;</i>-->
+                <!--<i class="fa" aria-hidden="true">90:24</i>-->
+            <!--</button>-->
+        <!--</div>-->
+        <!--<div class="db-control-right">-->
+            <!--<button class="helper right">-->
+                <!--<i class="fa fa-info-circle" aria-hidden="true"></i>-->
+            <!--</button>-->
+            <!--<button class="play-pause">-->
+                <!--<i class="fa fa-bolt" aria-hidden="true"></i>-->
+            <!--</button>-->
+            <!--<div class="slider-wrapper">-->
+                <!--<input id="speed-range" style="display: none" tabindex="-1" readonly="">-->
+            <!--</div>-->
+            <!--<button class="dropup right">-->
+                <!--<i class="fa" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"-->
+                   <!--style="">HD</i>-->
+                <!--<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">-->
+                    <!--<li><a href="#">360p</a></li>-->
+                    <!--<li><a href="#">480p</a></li>-->
+                    <!--<li><a href="#">720p</a></li>-->
+                    <!--<li><a href="#">1080p</a></li>-->
+                <!--</ul>-->
+            <!--</button>-->
+            <!--<button class="dropup right">-->
+                <!--<i class="fa fa-cc" aria-hidden="true" class="btn btn-default dropdown-toggle" id="dropdownMenu2"-->
+                   <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>-->
+                <!--<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">-->
+                    <!--<li><a href="#">English</a></li>-->
+                    <!--<li><a href="#">Vietnamese</a></li>-->
+                <!--</ul>-->
+            <!--</button>-->
+            <!--<button class="fullscreen right">-->
+                <!--<i class="fa fa-arrows-alt" aria-hidden="true"></i>-->
+            <!--</button>-->
+
+        <!--</div>-->
+        <!--<div style="clear: both"></div>-->
+    <!--</div>-->
+
     <div class="subtitle">
 
     </div>
 </div>
 <div class="fb-comments" data-href="https://phimtienganh.com/xem-phim/kung-fu-panda-2-tap-1" data-numposts="5"></div>
 
-<input class="sample character" maxlength="1" minlength="1"/>
+<div class="dropup right">
+    <span>HD</span>
+</div>
 
+<button class="dropup right">
+    <span>HD</span>
+</button>
+<div class="abc">
+    <input id="range_01" style="display: none;" tabindex="-1" readonly="">
+</div>
+
+
+
+<input class="sample character" maxlength="1" minlength="1"/>
 <script src="/javascripts/jquery-1.12.3.min.js"></script>
 <script src="/javascripts/subtitle-parser.js"></script>
 <script src="https://connect.facebook.net/en_US/sdk.js"></script>
-<script src="/ionRangeSlider/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
+<script src="/ionRangeSlider/js/ion.rangeSlider.min.js"></script>
+<script src="/js/IonSliderCustomer.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script src="/javascripts/app.js"></script>
+<script>
+    $(document).ready(function () {
+        function customizeIonSlider(options,e1) {
+            var e = e1.prev();
+            var height = options.height;
+            var color = 'green';
+            e.find('.irs-bar-edge, .irs-bar, .irs-line, .irs-line .irs-line-left, .irs-line .irs-line-mid, .irs-line .irs-line-right').css('height',height);
+            e.find('.irs-bar').css('background','gray')
+            e.find('.irs-line-left,.irs .irs-line-mid,.irs .irs-line-right').css('background','green')
+            e.find('.irs-slider.single').css('height',(3*height)+'px').css('width',(3*height)+'px')
+                .css('background','gray').css('border-radius','50%').css('top',(40-3*height)/2+'px')
+            e.find('.irs-bar-edge').css('background','gray')
+            e.find('.irs-bar,.irs-line,.irs-bar-edge').css('top',(40-height)/2+'px')
+//            e.find('.irs').css('background','red')
+            e.find('.irs-min,.irs-max').hide();
+            e.find('.irs-single').css('top',(0-height)+'px').css('font-size',10+(height/10)+'px');
+            var data = e1.data("ionRangeSlider");
+            data.update({
+                from:50
+            });
+            var style = '<style>.abc .irs{background:red}</style>';
 
+            $('head').append($(style))
+            console.log(e.parent());
+        }
+        var e = $("#range_01").ionRangeSlider({
+            max:100,
+            min:0,
+            from:50
+        });
+        console.log(e);
+//        customizeIonSlider({height:2},e);
+        customize('.abc','black','blue',2,15,e.prev(),e.data("ionRangeSlider"),100);
+    })
+
+    var customize = function (parent, backgroundColor, slideColor, height, dCircle, eSlider, dataSlider, maxValue) {
+        var _parent = parent;
+        var _bg_bg = backgroundColor;
+        var _bg_fill = slideColor;
+        var _height_1 = height + 'px';
+        var _height_2 = dCircle + 'px';
+        var _width_1 = _height_2;
+        var _top_1 = (40 - dCircle) / 2 + 'px';
+        var _top_2 = (40 - height) / 2 + 'px';
+        var _top_3 = -((40 - dCircle) / 2) + 'px';
+        var _font_size_1 = 12 + (height / 10) + 'px';
+        var style = "_parent .irs{\n                        background:transparent;\n                        cursor: pointer;\n                    }\n                    _parent .irs-bar-edge,_parent  .irs-bar,_parent  .irs-line,_parent  .irs-line .irs-line-left,_parent  .irs-line .irs-line-mid,_parent  .irs-line .irs-line-right{\n                        height: _height_1\n                    }\n                    _parent .irs-bar{\n                        background:_bg_bg\n                    }\n                    _parent .irs-line-left,_parent .irs .irs-line-mid,_parent .irs .irs-line-right{\n                        background:_bg_fill\n                    }\n                    _parent .irs-slider.single{\n                        height: _height_2;\n                        width: _width_1;\n                        background:_bg_fill;\n                        border-radius:50%;\n                        top:_top_1;\n                    }\n                    _parent .irs-bar-edge{\n                        background:_bg_bg\n                    }\n                    _parent .irs-bar,_parent .irs-line,_parent .irs-bar-edge{\n                        top:_top_2\n                    }\n                    _parent .irs-min,_parent .irs-max{\n                        display: none\n                    }\n                    _parent .irs-single{\n                        top: _top_3;\n                        font-size:_font_size_1;\n                    }";
+        var result = style.replace(/_bg_bg/g, _bg_bg)
+            .replace(/_bg_fill/g, _bg_fill)
+            .replace(/_height_1/g, _height_1)
+            .replace(/_height_2/g, _height_2)
+            .replace(/_width_1/g, _width_1)
+            .replace(/_top_1/g, _top_1)
+            .replace(/_top_2/g, _top_2)
+            .replace(/_top_3/g, _top_3)
+            .replace(/_font_size_1/g, _font_size_1)
+            .replace(/_parent/g, _parent);
+        console.log(result);
+        $('head').append($('<style>' + result + '</style>'));
+        $(parent).on('click', ' >.irs', function (e) {
+            var elm = $(this);
+            var xPos = e.pageX - elm.offset().left;
+            var max = $(this).width();
+            var update = Math.floor(xPos * maxValue / max);
+            dataSlider.update({
+                from: update
+            });
+        });
+    };
+
+</script>
+<style>
+    _parent .irs{
+        background:red
+    }
+    _parent .irs-bar-edge,__parent  .irs-bar,__parent  .irs-line,__parent  .irs-line .irs-line-left,__parent  .irs-line .irs-line-mid,__parent  .irs-line .irs-line-right{
+        height: _height_1
+    }
+    _parent .irs-bar{
+        background:_bg_bg
+    }
+    _parent .irs-line-left,_parent .irs .irs-line-mid,_parent .irs .irs-line-right{
+        background:_bg_fill
+    }
+    _parent .irs-slider.single{
+        height: _height_2 ,
+        width: _width_1,
+        background:_bg_fill,
+        border-radius:50%,
+        top:_top_1,
+    }
+    _parent .irs-bar-edge{
+        background:_bg_bg
+    }
+    _parent .irs-bar,_parent .irs-line,_parent .irs-bar-edge{
+        top:_top_2
+    }
+    _parent .irs-min,_parent .irs-max{
+        display: none
+    }
+    _parent .irs-single{
+        top: _top_3,
+        font-size:_font_size_1
+    }
+</style>
 </body>
 </html>
